@@ -18,6 +18,11 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int)$user->id === (int)$id;
 });
 
-Broadcast::channel('room', function ($user) {
-    return ['name' => $user->name];
+Broadcast::channel('room.{room}', function ($user, $room) {
+
+    if ($room->is($user->room)) {
+        return ['name' => $user->name];
+    }
+    return false;
+
 });

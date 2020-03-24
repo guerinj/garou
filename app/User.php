@@ -24,4 +24,9 @@ class User extends Authenticatable
         return is_null($this->session_id);
     }
 
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
 }

@@ -32,13 +32,16 @@ class RoomController extends Controller
 
     public function joinRoom(Request $request, Room $room, User $user)
     {
-        if (!$room->players()->where('id', $user->id)->exists() || !$user->isUsable()) {
-            throw new AuthorizationException();
-        }
-
         \Auth::login($user);
-        $user->session_id = $request->session()->getId();
-        return response()->json(['success' => false]);
+        $user->session_id = \Session::getId();
+        $user->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function getUser()
+    {
+        return Auth::user();
     }
 
     public function getRoom(Room $room)

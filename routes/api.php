@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/user', 'RoomController@getUser');
 Route::post('/rooms', 'RoomController@createRoom');
 Route::get('/rooms/{room}', 'RoomController@getRoom');
 Route::post('/rooms/{room}/join/{user}', 'RoomController@joinRoom');
