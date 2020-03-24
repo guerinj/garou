@@ -102,4 +102,6 @@
 
     <script>window.Laravel = "{{csrf_token()}}"</script>
     <script src="{{mix('/js/app.js')}}"></script>
+
+git
 </html>

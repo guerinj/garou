@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+    \Log::debug('App.User.{id}');
+    return (int)$user->id === (int)$id;
+});
+
+Broadcast::channel('room', function ($user) {
+    return ['name' => $user->name];
 });
