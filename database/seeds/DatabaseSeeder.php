@@ -55,7 +55,8 @@ class DatabaseSeeder extends Seeder
                     Room::ROLE_SBIRE,
                     Room::ROLE_VOYANTE,
                     Room::ROLE_NOISEUSE,
-                    Room::ROLE_INSOMNIAQUE,
+                    Room::ROLE_MACON,
+                    Room::ROLE_MACON,
                     Room::ROLE_VOLEUR,
                 ],
             'freeCards' => [],
@@ -67,7 +68,8 @@ class DatabaseSeeder extends Seeder
             'Marine',
             'Pol',
             'Julian',
-            'Charlotte',
+            'Mathilde',
+            'Quentin',
         ];
 
         foreach ($players as $player) {
