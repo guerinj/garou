@@ -1,8 +1,9 @@
 export const stepHelper = (step) => {
     switch (step) {
+
         case 'STEP_GAROU' :
             return {
-                start: 'Loup-Garou, réveillez-vous et regardez votre écran',
+                start: 'Tout le village s\'endort. Loup-Garou, réveillez-vous et regardez votre écran',
                 end: 'Loup-Garou, rendormez-vous et fermez les yeux',
             };
             break;
@@ -38,7 +39,5 @@ export const stepHelper = (step) => {
                 start: 'Tout le village se réveille',
             };
             break;
-
-
     }
 };

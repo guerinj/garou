@@ -28,6 +28,3 @@ Route::group(['prefix' => '/rooms/{room}/{user}/'], function () {
 
 Route::post('/webhooks/pusher', 'PusherController@webhooks');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});

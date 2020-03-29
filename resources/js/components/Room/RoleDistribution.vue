@@ -71,6 +71,16 @@
                         return `Tes complices Loup-Garou sont <b>${otherGarou.map(p => p.name).join(', ')}</b>.`;
                     }
                 }
+                if (originalRole.includes('ROLE_MACON')) {
+                    const otherMacon = this.room.players.filter(p => p.id != this.currentPlayer.id && p.original_role.includes('ROLE_MACON'));
+                    if (otherMacon.length == 0) {
+                        return 'Tu es le seul Loup-Garou.';
+                    } else if (otherMacon.length == 1) {
+                        return `Ton complice Franc-Maçon est <b>${otherMacon[0].name}</b>.`;
+                    } else {
+                        return `Tes complices Franc-Maçon sont <b>${otherMacon(p => p.name).join(', ')}</b>.`;
+                    }
+                }
             }
         },
         methods: {

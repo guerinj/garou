@@ -12,27 +12,21 @@ use Illuminate\Support\Str;
 class Room extends Model
 {
 
-    public const ROLE_GAROU1 = 'ROLE_GAROU1';
-    public const ROLE_GAROU2 = 'ROLE_GAROU2';
-    public const ROLE_GAROU3 = 'ROLE_GAROU3';
+    public const ROLE_GAROU = 'ROLE_GAROU';
     public const ROLE_SBIRE = 'ROLE_SBIRE';
     public const ROLE_VOYANTE = 'ROLE_VOYANTE';
     public const ROLE_NOISEUSE = 'ROLE_NOISEUSE';
     public const ROLE_VOLEUR = 'ROLE_VOLEUR';
-    public const ROLE_MACON1 = 'ROLE_MACON1';
-    public const ROLE_MACON2 = 'ROLE_MACON2';
+    public const ROLE_MACON = 'ROLE_MACON';
     public const ROLE_INSOMNIAQUE = 'ROLE_INSOMNIAQUE';
     public const ROLE_SOULARD = 'ROLE_SOULARD';
     public const ROLES = [
-        self::ROLE_GAROU1,
-        self::ROLE_GAROU2,
-        self::ROLE_GAROU3,
+        self::ROLE_GAROU,
         self::ROLE_SBIRE,
         self::ROLE_VOYANTE,
         self::ROLE_NOISEUSE,
         self::ROLE_VOLEUR,
-        self::ROLE_MACON1,
-        self::ROLE_MACON2,
+        self::ROLE_MACON,
         self::ROLE_SOULARD,
     ];
 
@@ -46,6 +40,16 @@ class Room extends Model
     public const STEP_INSOMNIAQUE = 'STEP_INSOMNIAQUE';
     public const STEP_DAY = 'STEP_DAY';
     public const STEP_ = 'STEP_';
+
+    public const STEPS = [
+        self::STEP_READY,
+        self::STEP_GAROU,
+        self::STEP_VOLEUR,
+        self::STEP_VOYANTE,
+        self::STEP_NOISEUSE,
+        self::STEP_INSOMNIAQUE,
+        self::STEP_DAY,
+    ];
 
     protected $fillable = [
         'code',
@@ -76,7 +80,8 @@ class Room extends Model
     public function reset()
     {
         $this->update([
-            'freeCards' => null
+            'freeCards' => null,
+            'step' => Room::STEP_WAITING
         ]);
 
         $this->players()->update([
@@ -97,30 +102,18 @@ class Room extends Model
 
     public function next()
     {
-        switch ($this->step) {
-            case self::STEP_READY:
-                $this->step = self::STEP_VOYANTE;
-                break;
-            case self::STEP_VOYANTE:
-                $this->step = self::STEP_VOLEUR;
-                break;
-            case self::STEP_VOLEUR:
-                $this->step = self::STEP_NOISEUSE;
-                break;
-            case self::STEP_NOISEUSE:
-                $this->step = self::STEP_INSOMNIAQUE;
-                break;
-            case self::STEP_INSOMNIAQUE:
-                $this->step = self::STEP_DAY;
-                break;
+        $currentIndex = array_search($this->step, self::STEPS);
+
+        if ($currentIndex >= count(self::STEPS) - 1) {
+            return;
         }
+        $this->step = self::STEPS[$currentIndex + 1];
         $currentRole = 'ROLE_' . substr($this->step, 5);
-        \Log::debug('Next : current role' . $currentRole);
-        \Log::debug('Next : roles ' . collect($this->roles)->join(', '));
-        \Log::debug('Next : should skip ' . !collect($this->roles)->contains($currentRole));
+
         if ($this->step != self::STEP_DAY && !collect($this->roles)->contains($currentRole)) {
             $this->next();
         }
+
         $this->step_started_at = microtime(true);
         $this->save();
     }

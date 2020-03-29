@@ -11,7 +11,7 @@
                             <button class="btn btn-success btn-sm"
                                     @click="joinAs(player.id)">Rejoindre
                             </button>
-                            <span v-if="player.is_connected">Prêt</span>
+                            <span v-if="player.is_connected">Connecté</span>
                         </div>
                     </div>
 

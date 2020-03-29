@@ -14,39 +14,31 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-
         $room = Room::factory([
             'code' => 'aaa',
             'roles' =>
                 [
-                    Room::ROLE_GAROU1,
-                    Room::ROLE_GAROU2,
+                    Room::ROLE_GAROU,
                     Room::ROLE_SBIRE,
                     Room::ROLE_VOLEUR,
-                    Room::ROLE_NOISEUSE,
+                    Room::ROLE_VOYANTE,
                     Room::ROLE_INSOMNIAQUE,
-
                 ],
             'freeCards' => [
-                Room::ROLE_VOLEUR,
-                Room::ROLE_NOISEUSE,
-                Room::ROLE_INSOMNIAQUE,
             ],
-            'step' => Room::STEP_READY
+            'step' => Room::STEP_WAITING,
         ]);
         $room->save();
 
         $players = [
-            'Marine' => Room::ROLE_GAROU1,
-            'Pol' => Room::ROLE_GAROU2,
-            'Julian' => Room::ROLE_SBIRE,
+            'Marine',
+            'Pol',
+            'Julian',
         ];
 
-        foreach ($players as $player => $role) {
+        foreach ($players as $player) {
             $user = new User([
                 'name' => $player,
-                'original_role' => $role,
-                'current_role' => $role,
                 'room_id' => $room->id
             ]);
             $user->save();
@@ -58,39 +50,67 @@ class DatabaseSeeder extends Seeder
             'code' => 'bbb',
             'roles' =>
                 [
-                    //  Room::ROLE_GAROU1,
-                    Room::ROLE_GAROU2,
-//                    Room::ROLE_SBIRE,
+                    Room::ROLE_GAROU,
+                    Room::ROLE_GAROU,
+                    Room::ROLE_SBIRE,
                     Room::ROLE_VOYANTE,
                     Room::ROLE_NOISEUSE,
                     Room::ROLE_INSOMNIAQUE,
                     Room::ROLE_VOLEUR,
-                    Room::ROLE_MACON1,
-                    Room::ROLE_MACON2,
                 ],
-            'freeCards' => [
-                Room::ROLE_GAROU2,
-                Room::ROLE_MACON1,
-                Room::ROLE_MACON2,
-            ],
+            'freeCards' => [],
             'step' => Room::STEP_WAITING
         ]);
         $room->save();
 
         $players = [
-            'Marine' => Room::ROLE_NOISEUSE,
-            'Pol' => Room::ROLE_VOLEUR,
-            'Julian' => Room::ROLE_VOYANTE,
-            'Quentin' => Room::ROLE_INSOMNIAQUE,
-            //'Charlotte' => Room::ROLE_SBIRE,
-            //'Mathilde' => Room::ROLE_GAROU1,
+            'Marine',
+            'Pol',
+            'Julian',
+            'Charlotte',
         ];
 
-        foreach ($players as $player => $role) {
+        foreach ($players as $player) {
             $user = new User([
                 'name' => $player,
-                'original_role' => $role,
-                'current_role' => $role,
+
+                'room_id' => $room->id
+            ]);
+            $user->save();
+        }
+
+
+        $room = Room::factory([
+            'code' => 'ccc',
+            'roles' =>
+                [
+                    Room::ROLE_GAROU,
+                    Room::ROLE_GAROU,
+                    Room::ROLE_SBIRE,
+                    Room::ROLE_VOYANTE,
+                    Room::ROLE_NOISEUSE,
+                    Room::ROLE_INSOMNIAQUE,
+                    Room::ROLE_VOLEUR,
+                    Room::ROLE_MACON,
+                    Room::ROLE_MACON,
+                ],
+            'freeCards' => [],
+            'step' => Room::STEP_WAITING
+        ]);
+        $room->save();
+
+        $players = [
+            'Marine',
+            'Pol',
+            'Julian',
+            'Quentin',
+            'Charlotte',
+            'Mathilde',
+        ];
+
+        foreach ($players as $player) {
+            $user = new User([
+                'name' => $player,
                 'room_id' => $room->id
             ]);
             $user->save();

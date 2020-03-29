@@ -1,8 +1,8 @@
 export const rolesHelper = (role) => {
     switch (role) {
-        case 'ROLE_GAROU1' :
-        case 'ROLE_GAROU2' :
-        case 'ROLE_GAROU3' :
+        case 'ROLE_GAROU' :
+        case 'ROLE_GAROU' :
+        case 'ROLE_GAROU' :
             return {label: 'Loup-Garou'};
             break;
         case 'ROLE_VOYANTE' :
@@ -14,8 +14,8 @@ export const rolesHelper = (role) => {
         case 'ROLE_VOLEUR' :
             return {label: 'Voleur'};
             break;
-        case 'ROLE_MACON1' :
-        case 'ROLE_MACON2' :
+        case 'ROLE_MACON' :
+        case 'ROLE_MACON' :
             return {label: 'Franc-Maçon'};
             break;
         case 'ROLE_INSOMNIAQUE' :

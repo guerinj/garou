@@ -18,7 +18,10 @@
                         <Day :room="room"/>
                     </div>
 
-
+                    <Garou
+                            v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_GAROU'"
+                            :room="room"
+                            :current-player="currentPlayer"/>
                     <Voyante
                             v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_VOYANTE'"
                             :room="room"
@@ -44,6 +47,15 @@
                     <PlayerSelection :room="room" @player-selected="joinRoom">
                     </PlayerSelection>
                 </template>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <p>Pour rappel voici la liste des personnages de cette partie :</p>
+                        <ul>
+                            <li v-for="role in room.roles">{{rolesHelper(role).label}}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -58,6 +70,7 @@
     import Voyante from "./roles/Voyante";
     import Noiseuse from "./roles/Noiseuse";
     import Insomniaque from "./roles/Insomniaque";
+    import Garou from "./roles/Garou";
     import {sayThis} from "../../helpers/speech";
     import {stepHelper} from "../../helpers/steps";
     import Reset from "./Reset";
@@ -69,7 +82,7 @@
         props: {
             roomCode: String
         },
-        components: {Reset, Day, Insomniaque, RoleDistribution, PlayerSelection, Voleur, Voyante, Noiseuse},
+        components: {Reset, Day, Insomniaque, RoleDistribution, PlayerSelection, Voleur, Voyante, Noiseuse, Garou},
         data() {
             return {
                 room: null,

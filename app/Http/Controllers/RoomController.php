@@ -8,11 +8,7 @@ use App\Events\RoomUpdated;
 use App\Resources\RoomResource;
 use App\Room;
 use App\User;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Validation\UnauthorizedException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use function Psy\debug;
 
 class RoomController extends Controller
 {
@@ -82,8 +78,13 @@ class RoomController extends Controller
     {
         if ($request->role === Room::ROLE_VOLEUR) {
             $otherPlayer = User::find($request->stealedPlayerId);
-            $otherPlayer->current_role = $user->original_role;
-            $user->current_role = $otherPlayer->original_role;
+
+            $roleOtherPlayer = $otherPlayer->current_role;
+            $myRole = $user->current_role;
+
+
+            $user->current_role = $roleOtherPlayer;
+            $otherPlayer->current_role = $myRole;
 
             $otherPlayer->save();
             $user->save();
@@ -94,7 +95,7 @@ class RoomController extends Controller
             $role1 = $player1->current_role;
 
             $player2 = User::find($request->player2Id);
-            $role2 = $player1->current_role;
+            $role2 = $player2->current_role;
 
             $player1->current_role = $role2;
             $player2->current_role = $role1;

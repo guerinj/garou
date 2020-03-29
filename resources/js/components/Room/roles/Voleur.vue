@@ -45,14 +45,12 @@
 <script>
 
     import {rolesHelper, getPlayer} from '../../../helpers/roles';
-    import FallAsleep from "../FallAsleep";
 
     export default {
         props: {
             room: Object,
             currentPlayer: Object
         },
-        components: {FallAsleep},
         data() {
             return {
                 done: false,
@@ -83,7 +81,6 @@
                     this.hasError = true;
                     return;
                 }
-
             },
         }
     }
