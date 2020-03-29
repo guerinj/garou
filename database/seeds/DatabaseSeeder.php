@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
 
 
         $room = Room::factory([
-            'code' => 'bbb',
+            'code' => 'aaa',
             'roles' =>
                 [
                     //  Room::ROLE_GAROU1,
