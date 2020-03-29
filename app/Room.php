@@ -61,12 +61,16 @@ class Room extends Model
 
     public function getIsFullAttribute()
     {
-        return $this->players()->get()->reduce(fn($allConnected, $u) => $allConnected && $u->is_connected, true);
+        return $this->players()->get()->reduce(function ($allConnected, $u) {
+            return $allConnected && $u->is_connected;
+        }, true);
     }
 
     public function getAllPlayersSleepingAttribute()
     {
-        return $this->players()->get()->reduce(fn($allConnected, $u) => $allConnected && $u->is_sleeping, true);
+        return $this->players()->get()->reduce(function ($allConnected, $u) {
+            return $allConnected && $u->is_sleeping;
+        }, true);
     }
 
     public function reset()
@@ -149,7 +153,9 @@ class Room extends Model
         /** @var Collection $roles */
         $roles = collect($this->roles)->shuffle();
 
-        $mapper = fn($r) => ['original' => $r, 'current' => $r];
+        $mapper = function ($r) {
+            return ['original' => $r, 'current' => $r];
+        };
 
         $playersRoles = $roles->take($this->players->count())->toArray();
         $freeRoles = $roles->skip($this->players->count())->toArray();
