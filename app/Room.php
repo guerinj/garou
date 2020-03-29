@@ -20,6 +20,7 @@ class Room extends Model
     public const ROLE_MACON = 'ROLE_MACON';
     public const ROLE_INSOMNIAQUE = 'ROLE_INSOMNIAQUE';
     public const ROLE_SOULARD = 'ROLE_SOULARD';
+
     public const ROLES = [
         self::ROLE_GAROU,
         self::ROLE_SBIRE,
@@ -95,7 +96,7 @@ class Room extends Model
 
     public function start()
     {
-        if ($this->all_players_sleeping) {
+        if ($this->all_players_sleeping && $this->step == Room::STEP_READY) {
             TakeRoomToNextStep::dispatch($this);
         }
     }
