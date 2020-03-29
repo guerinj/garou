@@ -82,7 +82,7 @@ class Room extends Model
         $this->players()->update([
             'original_role' => null,
             'current_role' => null,
-            'is_sleeping'=>false,
+            'is_sleeping' => false,
         ]);
 
         $this->refresh();
@@ -114,7 +114,13 @@ class Room extends Model
                 $this->step = self::STEP_DAY;
                 break;
         }
-
+        $currentRole = 'ROLE_' . substr($this->step, 5);
+        \Log::debug('Next : current role' . $currentRole);
+        \Log::debug('Next : roles ' . collect($this->roles)->join(', '));
+        \Log::debug('Next : should skip ' . !collect($this->roles)->contains($currentRole));
+        if ($this->step != self::STEP_DAY && !collect($this->roles)->contains($currentRole)) {
+            $this->next();
+        }
         $this->step_started_at = microtime(true);
         $this->save();
     }

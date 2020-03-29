@@ -38,7 +38,7 @@ class RoomController extends Controller
         \Auth::login($user);
         $user->update(['is_connected' => true]);
 
-        if (!$alreadyFull && $room->is_full) {
+        if (!$alreadyFull && $room->is_full && $room->step == Room::STEP_WAITING) {
             $room->drawCards();
             $room->step = Room::STEP_READY;
             $room->save();

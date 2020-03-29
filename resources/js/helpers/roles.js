@@ -22,10 +22,14 @@ export const rolesHelper = (role) => {
             return {label: 'Insomniaque'};
             break;
 
+        case 'ROLE_SBIRE' :
+            return {label: 'Sbire'};
+            break;
+
 
     }
 };
 
-export const getPlayer = (playerId,  room) => {
+export const getPlayer = (playerId, room) => {
     return room.players.find(p => p.id === playerId);
 };

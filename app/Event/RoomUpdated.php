@@ -36,7 +36,7 @@ class RoomUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return [new PresenceChannel('room.' . $this->room->code), new Channel('room.' . $this->room->code)];
+        return new Channel('room.' . $this->room->code);
     }
 
     public function broadcastWith()

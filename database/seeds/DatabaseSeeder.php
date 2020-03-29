@@ -19,31 +19,27 @@ class DatabaseSeeder extends Seeder
             'code' => 'aaa',
             'roles' =>
                 [
-                    //  Room::ROLE_GAROU1,
+                    Room::ROLE_GAROU1,
                     Room::ROLE_GAROU2,
-//                    Room::ROLE_SBIRE,
-                    Room::ROLE_VOYANTE,
+                    Room::ROLE_SBIRE,
+                    Room::ROLE_VOLEUR,
                     Room::ROLE_NOISEUSE,
                     Room::ROLE_INSOMNIAQUE,
-                    Room::ROLE_VOLEUR,
-                    Room::ROLE_MACON2,
+
                 ],
             'freeCards' => [
-                Room::ROLE_GAROU2,
-                Room::ROLE_MACON2,
+                Room::ROLE_VOLEUR,
+                Room::ROLE_NOISEUSE,
                 Room::ROLE_INSOMNIAQUE,
             ],
-            'step' => Room::STEP_WAITING
+            'step' => Room::STEP_READY
         ]);
         $room->save();
 
         $players = [
-            'Marine' => Room::ROLE_NOISEUSE,
-            'Pol' => Room::ROLE_VOLEUR,
-            'Julian' => Room::ROLE_VOYANTE,
-
-            //'Charlotte' => Room::ROLE_SBIRE,
-            //'Mathilde' => Room::ROLE_GAROU1,
+            'Marine' => Room::ROLE_GAROU1,
+            'Pol' => Room::ROLE_GAROU2,
+            'Julian' => Room::ROLE_SBIRE,
         ];
 
         foreach ($players as $player => $role) {

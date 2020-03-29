@@ -34,7 +34,7 @@ class TakeRoomToNextStep implements ShouldQueue
         event(new RoomUpdated($this->room));
 
         if ($this->room->step != Room::STEP_DAY) {
-            TakeRoomToNextStep::dispatch($this->room)->delay(now()->addSecond(30));
+            TakeRoomToNextStep::dispatch($this->room)->delay(now()->addSecond(20));
         }
     }
 

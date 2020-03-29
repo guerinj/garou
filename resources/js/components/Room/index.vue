@@ -15,31 +15,28 @@
                         </div>
                     </div>
                     <div class="card mb-2" v-else>
-                        <div class="card-body">
-                            C’est le jour ! Vous pouvez maintenant discuter et voter pour éliminer un joueur.
-                            <Reset :room="room"/>
-                        </div>
+                        <Day :room="room"/>
                     </div>
 
 
                     <Voyante
-                        v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_VOYANTE'"
-                        :room="room"
-                        :current-player="currentPlayer"/>
+                            v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_VOYANTE'"
+                            :room="room"
+                            :current-player="currentPlayer"/>
 
                     <Voleur
-                        v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_VOLEUR'"
-                        :room="room"
-                        :current-player="currentPlayer"/>
+                            v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_VOLEUR'"
+                            :room="room"
+                            :current-player="currentPlayer"/>
 
                     <Noiseuse
-                        v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_NOISEUSE'"
-                        :room="room"
-                        :current-player="currentPlayer"/>
+                            v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_NOISEUSE'"
+                            :room="room"
+                            :current-player="currentPlayer"/>
                     <Insomniaque
-                        v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_INSOMNIAQUE'"
-                        :room="room"
-                        :current-player="currentPlayer"/>
+                            v-if="getPlayer(currentPlayer.id, room).original_role === 'ROLE_INSOMNIAQUE'"
+                            :room="room"
+                            :current-player="currentPlayer"/>
                 </template>
 
 
@@ -53,6 +50,7 @@
 </template>
 
 <script>
+
     import {rolesHelper, getPlayer} from '../../helpers/roles';
     import RoleDistribution from "./RoleDistribution";
     import PlayerSelection from "./PlayerSelection";
@@ -63,12 +61,15 @@
     import {sayThis} from "../../helpers/speech";
     import {stepHelper} from "../../helpers/steps";
     import Reset from "./Reset";
+    import Day from "./Day";
 
+    const stepDuration = 20000;
+    const stepInterval = 5000;
     export default {
         props: {
             roomCode: String
         },
-        components: {Reset, Insomniaque, RoleDistribution, PlayerSelection, Voleur, Voyante, Noiseuse},
+        components: {Reset, Day, Insomniaque, RoleDistribution, PlayerSelection, Voleur, Voyante, Noiseuse},
         data() {
             return {
                 room: null,
@@ -90,10 +91,10 @@
                         console.log(delay);
                         setTimeout(() => {
                             sayThis(stepHelper(room.step).start)
-                        }, 5000 - delay);
+                        }, stepInterval / 2 - delay);
                         setTimeout(() => {
                             sayThis(stepHelper(room.step).end)
-                        }, 25000 - delay);
+                        }, stepDuration - stepInterval / 2 - delay);
                     }
                 });
         },
