@@ -74,7 +74,7 @@
                 if (originalRole.includes('ROLE_MACON')) {
                     const otherMacon = this.room.players.filter(p => p.id != this.currentPlayer.id && p.original_role.includes('ROLE_MACON'));
                     if (otherMacon.length == 0) {
-                        return 'Tu es le seul Loup-Garou.';
+                        return 'Tu es le seul Franc-Maçon.';
                     } else if (otherMacon.length == 1) {
                         return `Ton complice Franc-Maçon est <b>${otherMacon[0].name}</b>.`;
                     } else {
