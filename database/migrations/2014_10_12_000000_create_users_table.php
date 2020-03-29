@@ -16,7 +16,10 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('session_id')->nullable();
+            $table->string('original_role')->nullable();
+            $table->string('current_role')->nullable();
+            $table->boolean('is_connected')->default(false);
+            $table->boolean('is_sleeping')->default(false);
             $table->timestamps();
         });
     }

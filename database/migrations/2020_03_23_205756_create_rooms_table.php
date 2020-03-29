@@ -16,7 +16,10 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('code');
+            $table->string('step');
             $table->jsonb('roles');
+            $table->jsonb('freeCards');
+            $table->float('step_started_at')->default(0);
             $table->timestamps();
         });
 

@@ -14,7 +14,11 @@ class RoomResource extends JsonResource
         return [
             'code' => $this->code,
             'roles' => $this->roles,
-            'players' => $this->players->map(fn($u) => ['id' => $u->id, 'name' => $u->name]),
+            'freeCards' => $this->freeCards,
+            'step' => $this->step,
+            'players' => $this->players->sortBy('name')->values(),
+            'is_full' => $this->is_full,
+            'step_started_at' => $this->step_started_at,
         ];
     }
 }

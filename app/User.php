@@ -16,13 +16,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name', 'is_connected'
     ];
 
-    public function isUsable()
-    {
-        return is_null($this->session_id);
-    }
 
     public function room()
     {

@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@main');
+Route::get('/{room}', 'RoomController@showRoom');
