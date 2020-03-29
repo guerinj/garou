@@ -19,7 +19,6 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('room.{room}', function ($user, $room) {
-
     if ($room->is($user->room)) {
         return $user;
     }

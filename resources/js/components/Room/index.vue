@@ -82,7 +82,19 @@
             window.Echo
                 .channel('room.' + this.roomCode)
                 .listen('RoomUpdated', (room) => {
+                    const oldStep = this.room.step;
                     this.room = room;
+
+                    if (oldStep != room.step) {
+                        const delay = Date.now() / 1000 - room.step_started_at;
+                        console.log(delay);
+                        setTimeout(() => {
+                            sayThis(stepHelper(room.step).start)
+                        }, 5000 - delay);
+                        setTimeout(() => {
+                            sayThis(stepHelper(room.step).end)
+                        }, 25000 - delay);
+                    }
                 });
         },
         methods: {
@@ -93,25 +105,7 @@
                 this.currentPlayer = user;
                 this.room = room;
 
-                window.Echo.leaveChannel('room.' + this.roomCode);
 
-                window.Echo
-                    .join('room.' + this.roomCode)
-                    .listen('RoomUpdated', (room) => {
-                        const oldStep = this.room.step;
-                        this.room = room;
-
-                        if (oldStep != room.step) {
-                            const delay = Date.now() / 1000 - room.step_started_at;
-                            console.log(delay);
-                            setTimeout(() => {
-                                sayThis(stepHelper(room.step).start)
-                            }, 5000 - delay);
-                            setTimeout(() => {
-                                sayThis(stepHelper(room.step).end)
-                            }, 25000 - delay);
-                        }
-                    });
             }
         }
     }
