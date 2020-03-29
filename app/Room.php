@@ -110,10 +110,6 @@ class Room extends Model
         $this->step = self::STEPS[$currentIndex + 1];
         $currentRole = 'ROLE_' . substr($this->step, 5);
 
-        if ($this->step != self::STEP_DAY) {
-            $this->next();
-        }
-
         $this->step_started_at = microtime(true);
         $this->save();
     }
