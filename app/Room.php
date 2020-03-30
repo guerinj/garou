@@ -45,8 +45,8 @@ class Room extends Model
     public const STEPS = [
         self::STEP_READY,
         self::STEP_GAROU,
-        self::STEP_VOLEUR,
         self::STEP_VOYANTE,
+        self::STEP_VOLEUR,
         self::STEP_NOISEUSE,
         self::STEP_INSOMNIAQUE,
         self::STEP_DAY,
@@ -111,6 +111,10 @@ class Room extends Model
         $this->step = self::STEPS[$currentIndex + 1];
         $currentRole = 'ROLE_' . substr($this->step, 5);
 
+        if ($this->step != self::STEP_DAY && !collect($this->roles)->contains($currentRole)) {
+            $this->next();
+        }
+
         $this->step_started_at = microtime(true);
         $this->save();
     }
@@ -148,10 +152,6 @@ class Room extends Model
     {
         /** @var Collection $roles */
         $roles = collect($this->roles)->shuffle();
-
-        $mapper = function ($r) {
-            return ['original' => $r, 'current' => $r];
-        };
 
         $playersRoles = $roles->take($this->players->count())->toArray();
         $freeRoles = $roles->skip($this->players->count())->toArray();

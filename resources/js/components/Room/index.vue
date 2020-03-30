@@ -105,7 +105,6 @@
                         setTimeout(() => {
                             sayThis(stepHelper(room.step).start)
                         }, stepInterval / 2 - delay);
-
                         setTimeout(() => {
                             sayThis(stepHelper(room.step).end)
                         }, stepDuration - stepInterval / 2 - delay);
@@ -116,11 +115,8 @@
             rolesHelper,
             getPlayer,
             joinRoom({user, room}) {
-
                 this.currentPlayer = user;
                 this.room = room;
-
-
             }
         }
     }
