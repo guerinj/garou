@@ -55,8 +55,9 @@
 
                         </li>
                     </ul>
-
-                    <b-button @click="done=true" variant="success">Je me rendors</b-button>
+                    <div>
+                        <b-button @click="done=true" variant="success">Je me rendors</b-button>
+                    </div>
                 </div>
             </div>
         </template>

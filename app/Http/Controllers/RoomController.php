@@ -9,6 +9,7 @@ use App\Resources\RoomResource;
 use App\Room;
 use App\User;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RoomController extends Controller
 {
@@ -49,16 +50,15 @@ class RoomController extends Controller
     public function reset(Request $request, Room $room)
     {
 
-        $room->reset();
-        $room->drawCards();
-        $room->step = Room::STEP_READY;
-        $room->save();
-        $room->refresh();
+        if ($room->step == Room::STEP_READY) {
+            $room->reset();
+            $room->drawCards();
+            $room->refresh();
+            event(new RoomUpdated($room));
 
-
-        event(new RoomUpdated($room));
-
-        return response()->json(['success' => true]);
+            return response()->json(['success' => true]);
+        }
+        throw new BadRequestHttpException();
     }
 
 
