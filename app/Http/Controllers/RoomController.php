@@ -49,13 +49,12 @@ class RoomController extends Controller
 
     public function reset(Request $request, Room $room)
     {
-
-        if ($room->step == Room::STEP_READY) {
+        if ($room->step == Room::STEP_DAY) {
             $room->reset();
             $room->drawCards();
             $room->refresh();
-            event(new RoomUpdated($room));
 
+            event(new RoomUpdated($room));
             return response()->json(['success' => true]);
         }
         throw new BadRequestHttpException();

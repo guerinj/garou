@@ -117,5 +117,45 @@ class DatabaseSeeder extends Seeder
             ]);
             $user->save();
         }
+
+        $room = Room::factory([
+            'code' => 'ddd',
+            'roles' =>
+                [
+                    Room::ROLE_GAROU,
+                    Room::ROLE_GAROU,
+                    Room::ROLE_GAROU,
+                    Room::ROLE_SBIRE,
+                    Room::ROLE_VOYANTE,
+                    Room::ROLE_NOISEUSE,
+                    Room::ROLE_INSOMNIAQUE,
+                    Room::ROLE_VOLEUR,
+                    Room::ROLE_MACON,
+                    Room::ROLE_MACON,
+                    Room::ROLE_MACON,
+                ],
+            'freeCards' => [],
+            'step' => Room::STEP_WAITING
+        ]);
+        $room->save();
+
+        $players = [
+            'Marine',
+            'Pol',
+            'Julian',
+            'Quentin',
+            'Charlotte',
+            'Mathilde',
+            'Thibault',
+            'Agnès'
+        ];
+
+        foreach ($players as $player) {
+            $user = new User([
+                'name' => $player,
+                'room_id' => $room->id
+            ]);
+            $user->save();
+        }
     }
 }
